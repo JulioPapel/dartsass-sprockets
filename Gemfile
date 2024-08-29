@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-platforms :windows do
+platforms :mswin do
   gem 'tzinfo-data'
 end
 
