@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 3.1'
 
   spec.add_dependency 'railties', '>= 4.0.0'
-  spec.add_dependency 'sassc-embedded', '~> 1.70.0'
+  spec.add_dependency 'sassc-embedded', '~> 1.77.8'
   spec.add_dependency 'sprockets', '> 3.0'
   spec.add_dependency 'sprockets-rails'
   spec.add_dependency 'tilt'
