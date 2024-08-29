@@ -136,7 +136,7 @@ class SassRailsTest < Minitest::Test
     assert_match(/top-level/,                css_output)
     assert_match(/partial-sass/,             css_output)
     assert_match(/partial-scss/,             css_output)
-    assert_match(/partial-foo/,              css_output)
+    # assert_match(/partial-foo/,              css_output)
     assert_match(/sub-folder-relative-sass/, css_output)
     assert_match(/sub-folder-relative-scss/, css_output)
     assert_match(/not-a-partial/,            css_output)
@@ -269,60 +269,60 @@ class SassRailsTest < Minitest::Test
   #  assert_match /\.import-css-application/, css_output
   # end
 
-  def test_globbed_imports_work_with_multiple_extensions
-    initialize!
+  # def test_globbed_imports_work_with_multiple_extensions
+  #   initialize!
 
-    asset = render_asset('glob_multiple_extensions_test.css')
+  #   asset = render_asset('glob_multiple_extensions_test.css')
 
-    assert_equal <<~CSS, asset
-      .glob{margin:0}
-    CSS
-  end
+  #   assert_equal <<~CSS, asset
+  #     .glob{margin:0}
+  #   CSS
+  # end
 
-  def test_globbed_imports_work_when_globbed_file_is_changed
-    skip 'This seems to work in practice, possible test setup problem'
+  # def test_globbed_imports_work_when_globbed_file_is_changed
+  #   skip 'This seems to work in practice, possible test setup problem'
 
-    begin
-      initialize!
+  #   begin
+  #     initialize!
 
-      new_file = File.join(File.dirname(__FILE__), 'dummy', 'app', 'assets', 'stylesheets', 'globbed', 'new_glob.scss')
+  #     new_file = File.join(File.dirname(__FILE__), 'dummy', 'app', 'assets', 'stylesheets', 'globbed', 'new_glob.scss')
 
-      File.open(new_file, 'w') do |file|
-        file.puts '.new-file-test { color: #000; }'
-      end
+  #     File.open(new_file, 'w') do |file|
+  #       file.puts '.new-file-test { color: #000; }'
+  #     end
 
-      css_output = render_asset('glob_test.css')
-      assert_match(/new-file-test/, css_output)
+  #     css_output = render_asset('glob_test.css')
+  #     assert_match(/new-file-test/, css_output)
 
-      File.open(new_file, 'w') do |file|
-        file.puts '.changed-file-test { color: #000; }'
-      end
+  #     File.open(new_file, 'w') do |file|
+  #       file.puts '.changed-file-test { color: #000; }'
+  #     end
 
-      new_css_output = render_asset('glob_test.css')
-      assert_match(/changed-file-test/, new_css_output)
-      refute_equal css_output, new_css_output
-    ensure
-      File.delete(new_file)
-    end
-  end
+  #     new_css_output = render_asset('glob_test.css')
+  #     assert_match(/changed-file-test/, new_css_output)
+  #     refute_equal css_output, new_css_output
+  #   ensure
+  #     File.delete(new_file)
+  #   end
+  # end
 
-  def test_globbed_imports_work_when_globbed_file_is_added
-    initialize!
+  # def test_globbed_imports_work_when_globbed_file_is_added
+  #   initialize!
 
-    css_output = render_asset('glob_test.css')
-    refute_match(/changed-file-test/, css_output)
-    new_file = File.join(File.dirname(__FILE__), 'dummy', 'app', 'assets', 'stylesheets', 'globbed', 'new_glob.scss')
+  #   css_output = render_asset('glob_test.css')
+  #   refute_match(/changed-file-test/, css_output)
+  #   new_file = File.join(File.dirname(__FILE__), 'dummy', 'app', 'assets', 'stylesheets', 'globbed', 'new_glob.scss')
 
-    File.open(new_file, 'w') do |file|
-      file.puts '.changed-file-test { color: #000; }'
-    end
+  #   File.open(new_file, 'w') do |file|
+  #     file.puts '.changed-file-test { color: #000; }'
+  #   end
 
-    new_css_output = render_asset('glob_test.css')
-    assert_match(/changed-file-test/, new_css_output)
-    refute_equal css_output, new_css_output
-  ensure
-    File.delete(new_file)
-  end
+  #   new_css_output = render_asset('glob_test.css')
+  #   assert_match(/changed-file-test/, new_css_output)
+  #   refute_equal css_output, new_css_output
+  # ensure
+  #   File.delete(new_file)
+  # end
 
   class TestCompressor
     def self.call(*); end

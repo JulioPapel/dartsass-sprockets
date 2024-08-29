@@ -2,5 +2,3 @@
 
 require_relative 'sassc/rails'
 require 'sassc-embedded'
-
-SassC::Engine.new(sass, style: :compressed).render
